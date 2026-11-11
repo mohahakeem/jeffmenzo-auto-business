@@ -1,0 +1,82 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Install frontend dependencies",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"install"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Build frontend",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Build frontend with quoted path",
+			"type": "shell",
+			"command": "Set-Location -LiteralPath 'C:\\Desktop\\Jeffmenzo Auto  & Business Ventures'; npm run build",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Build frontend from resolved workspace",
+			"type": "shell",
+			"command": "$project = Get-ChildItem -LiteralPath 'C:\\Desktop' -Directory | Where-Object { $_.Name -like 'Jeffmenzo Auto*Business Ventures' } | Select-Object -First 1; Set-Location -LiteralPath $project.FullName; npm run build",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Build frontend directly with Node",
+			"type": "shell",
+			"command": "$project = Get-ChildItem -LiteralPath 'C:\\Desktop' -Directory | Where-Object { $_.Name -like 'Jeffmenzo Auto*Business Ventures' } | Select-Object -First 1; Set-Location -LiteralPath $project.FullName; node .\\node_modules\\vite\\bin\\vite.js build",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Install API dependencies",
+			"type": "shell",
+			"command": "$project = Get-ChildItem -LiteralPath 'C:\\Desktop' -Directory | Where-Object { $_.Name -like 'Jeffmenzo Auto*Business Ventures' } | Select-Object -First 1; Set-Location -LiteralPath (Join-Path $project.FullName 'server'); npm install",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Start Jeffmenzo frontend",
+			"type": "shell",
+			"command": "$project = Get-ChildItem -LiteralPath 'C:\\Desktop' -Directory | Where-Object { $_.Name -like 'Jeffmenzo Auto*Business Ventures' } | Select-Object -First 1; Set-Location -LiteralPath $project.FullName; node .\\node_modules\\vite\\bin\\vite.js --host 127.0.0.1",
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check API JavaScript syntax",
+			"type": "shell",
+			"command": "$project = Get-ChildItem -LiteralPath 'C:\\Desktop' -Directory | Where-Object { $_.Name -like 'Jeffmenzo Auto*Business Ventures' } | Select-Object -First 1; Get-ChildItem -LiteralPath (Join-Path $project.FullName 'server\\src') -Recurse -Filter *.js | ForEach-Object { node --check $_.FullName; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }; Write-Output 'All API JavaScript files passed node --check.'",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Rebuild frontend",
+			"type": "shell",
+			"command": "$project = Get-ChildItem -LiteralPath 'C:\\Desktop' -Directory | Where-Object { $_.Name -like 'Jeffmenzo Auto*Business Ventures' } | Select-Object -First 1; Set-Location -LiteralPath $project.FullName; node .\\node_modules\\vite\\bin\\vite.js build",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Install API packages through Node",
+			"type": "shell",
+			"command": "$project = Get-ChildItem -LiteralPath 'C:\\Desktop' -Directory | Where-Object { $_.Name -like 'Jeffmenzo Auto*Business Ventures' } | Select-Object -First 1; Set-Location -LiteralPath (Join-Path $project.FullName 'server'); $nodeDir = Split-Path (Get-Command node).Source; node (Join-Path $nodeDir 'node_modules\\npm\\bin\\npm-cli.js') install",
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}

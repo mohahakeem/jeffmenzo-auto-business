@@ -1,0 +1,8 @@
+import { Link } from 'react-router-dom'
+import { ArrowRight, CarFront } from 'lucide-react'
+
+export function VehicleCard({ vehicle }) {
+  const image = vehicle.images?.[0]?.url || vehicle.images?.[0] || ''
+  const formattedPrice = (() => { try { return new Intl.NumberFormat('en-GH', { style: 'currency', currency: vehicle.currency || 'GHS', maximumFractionDigits: 0 }).format(vehicle.price) } catch { return `${vehicle.currency || 'GHS'} ${Number(vehicle.price).toLocaleString()}` } })()
+  return <article className="vehicle-card"><Link className="vehicle-image" to={`/vehicles/${vehicle.slug || vehicle._id}`} aria-label={`View ${vehicle.year} ${vehicle.make} ${vehicle.model}`}>{image ? <img src={image} alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`} loading="lazy" /> : <div className="image-placeholder"><CarFront size={36} /></div>}<span className="vehicle-status">{vehicle.status || 'Available'}</span></Link><div className="vehicle-info"><div className="vehicle-title"><h3>{vehicle.year} {vehicle.make} {vehicle.model}</h3><strong>{formattedPrice}</strong></div><div className="vehicle-specs"><span>{Number(vehicle.mileage || 0).toLocaleString()} km<small>Mileage</small></span><span>{vehicle.transmission || 'N/A'}<small>Transmission</small></span><span>{vehicle.fuelType || 'N/A'}<small>Fuel type</small></span></div><Link className="button button-orange card-button" to={`/vehicles/${vehicle.slug || vehicle._id}`}>View details <ArrowRight size={14} /></Link></div></article>
+}
